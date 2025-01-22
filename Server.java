@@ -1,3 +1,4 @@
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.IOException;
 import java.io.*;
 import java.net.*;
@@ -12,6 +13,7 @@ public class Server extends Thread {
 			Socket s = ss.accept();
 			System.out.println("A client connected at"+s.getInetAddress());
 			ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+			ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 			String st = (String)ois.readObject();
 			System.out.println(st);
 			s.close();
